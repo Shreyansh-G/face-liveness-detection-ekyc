@@ -8,7 +8,6 @@ __pycache__/
 # data and generated outputs; only the headline results are published
 data/
 dist/
-space/
 results/*
 !results/summary.md
 !results/eval/

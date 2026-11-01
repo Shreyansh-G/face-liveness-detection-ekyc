@@ -22,11 +22,10 @@ from fas.engine import LivenessEngine  # noqa: E402
 ap = argparse.ArgumentParser()
 ap.add_argument("--models", default=str(ROOT / "app" / "models" / "fine-tuned"))
 ap.add_argument("--camera", type=int, default=0)
-ap.add_argument("--int8", action="store_true", help="INT8 ONNX: 2.6x smaller, less accurate")
 ap.add_argument("--smooth", type=float, default=0.3, help="weight of the newest frame (1 = no smoothing)")
 a = ap.parse_args()
 
-engine = LivenessEngine(a.models, int8=a.int8)
+engine = LivenessEngine(a.models)
 cap = cv2.VideoCapture(a.camera)
 if not cap.isOpened():
     raise SystemExit(f"Cannot open camera {a.camera}")

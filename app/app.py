@@ -18,18 +18,17 @@ from fas.engine import FaceDetector, LivenessEngine  # noqa: E402
 
 
 @st.cache_resource
-def load_engines(int8, early_exit):
+def load_engines(early_exit):
     detector = FaceDetector()
     sets = sorted((p for p in (ROOT / "app" / "models").glob("*") if any(p.glob("*.onnx"))), reverse=True)  # pretrained first
-    return [LivenessEngine(p, int8=int8, early_exit=0.1 if early_exit else 0, detector=detector) for p in sets]
+    return [LivenessEngine(p, early_exit=0.1 if early_exit else 0, detector=detector) for p in sets]
 
 
 st.set_page_config(page_title="Face Liveness Detection for eKYC", page_icon="🛡️", layout="wide")
 st.title("Face Liveness Detection for eKYC")
 st.write("Is this a real person or a fake (printed photo, screen replay, mask)? "
          "The pretrained and the fine-tuned model check the same photo.")
-int8 = st.sidebar.checkbox("INT8 models (smaller, less accurate)")
-early = st.sidebar.checkbox("Early exit (skip the 2nd model when the 1st is confident)", True)
+early =st.sidebar.checkbox("Early exit (skip the 2nd model when the 1st is confident)", True)
 st.sidebar.markdown("0.87M parameters, 3.5 MB, about 9 ms per face on CPU. "
                     "[Code and results](https://github.com/Shreyansh-G/face-liveness-detection-ekyc)")
 
@@ -41,7 +40,7 @@ if photo:
     if img is None:
         st.error("Could not read this image.")
         st.stop()
-    engines = load_engines(int8, early)
+    engines = load_engines(early)
     rows = []
     for col, e in zip(st.columns(len(engines)), engines):
         r = e.predict(img)
