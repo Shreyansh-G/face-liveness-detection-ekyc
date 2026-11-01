@@ -1,0 +1,15 @@
+This project builds on third-party work:
+
+1. Silent-Face-Anti-Spoofing by Minivision Technology (Apache License 2.0, see LICENSE)
+   https://github.com/minivision-ai/Silent-Face-Anti-Spoofing
+   Used: MiniFASNet architecture (fas/network.py, rewritten compactly with identical layers),
+   the Fourier-spectrum auxiliary head design, the face-cropping rule, the pretrained weights in
+   pretrained/anti_spoof/ and the RetinaFace detector files in pretrained/detector/.
+   Everything else (training, augmentation, evaluation, export, reporting, app) is new.
+
+2. CelebA-Spoof (Zhang et al., ECCV 2020), via the Hugging Face mirror Ar4ikov/celebA_spoof.
+   Non-commercial research use only; images must not be redistributed.
+   Downloaded at run time; no images are included in this project.
+
+3. The fine-tuned models in app/models/fine-tuned/ were trained on CelebA-Spoof and are therefore
+   provided for non-commercial research and demonstration use only.
