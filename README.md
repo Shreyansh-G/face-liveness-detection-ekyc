@@ -108,11 +108,12 @@ accuracy (ACER 14.51% vs 14.38%). Times were measured on a Kaggle CPU.
 
 ```bash
 pip install -r requirements.txt
-python app/app.py      # web demo at http://127.0.0.1:7860: upload a photo or use the webcam
-python app/webcam.py   # live webcam check, press q to quit
+streamlit run app/app.py   # web demo at http://localhost:8501: take a selfie or upload a photo
 ```
 
-The web demo shows the original (`pretrained`) and the improved (`fine-tuned`) model side by side on the same photo.
+The web demo shows the original (`pretrained`) and the improved (`fine-tuned`) model side by side on the same
+photo. For a live webcam loop, run `python app/webcam.py` (it needs the desktop OpenCV build; see the note at
+the top of the file).
 
 Use it in your own Python code (run from the project folder):
 
@@ -143,26 +144,23 @@ models and writes the report. Each step is also a script (run with `--help` for 
 | `scripts/evaluate.py` | computes the bank metrics, early-exit results and speed |
 | `scripts/export.py` | exports ONNX and INT8 models and compares speed, size and accuracy |
 | `scripts/report.py` | writes the results tables, impact per 1M checks and charts |
-| `scripts/deploy_space.py` | publishes the web demo to Hugging Face Spaces |
 
 Training needs extra packages: `pip install -r requirements-train.txt`.
 
-## Put the demo online (Hugging Face Spaces, free)
+## Put the demo online (Streamlit Community Cloud, free)
 
-```bash
-pip install huggingface_hub
-hf auth login          # paste a Hugging Face token with "write" access
-python scripts/deploy_space.py --repo <your-hf-username>/face-liveness-ekyc --github <this repo's URL>
-```
+1. Sign in at [share.streamlit.io](https://share.streamlit.io) with GitHub.
+2. Click **Create app**, then **Deploy a public app from GitHub**.
+3. Choose this repository, branch `main`, main file `app/app.py`, and click **Deploy**.
 
-The script uploads only what the demo needs (about 12 MB) and the Space is live in 2-3 minutes.
+It installs `requirements.txt` and is live in a few minutes.
 
 ## Folders
 
 ```
 fas/          core code: model, training transforms, data, metrics, inference engine
-scripts/      data, training, evaluation, export, report and deployment steps
-app/          web demo (app.py), webcam demo (webcam.py), ONNX models (models/)
+scripts/      data, training, evaluation, export and report steps
+app/          Streamlit web demo (app.py), webcam demo (webcam.py), ONNX models (models/)
 notebooks/    Kaggle notebook that runs everything end to end
 pretrained/   Minivision's original model weights and the face detector
 results/      results summary, metrics per run and charts

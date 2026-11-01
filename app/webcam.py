@@ -3,6 +3,9 @@ Real-time liveness from the webcam (press q to quit). The score is smoothed over
 so the verdict doesn't flicker, like an eKYC capture screen deciding over a short burst.
 
   python app/webcam.py
+
+It opens a desktop window, so it needs the full OpenCV build instead of the headless one:
+  pip uninstall -y opencv-python-headless && pip install "opencv-python<5"
 """
 import argparse
 import sys

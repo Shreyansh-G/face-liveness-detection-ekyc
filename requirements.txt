@@ -1,5 +1,5 @@
-# Demo app and inference (ONNX Runtime, no PyTorch needed)
+# Web demo and inference (ONNX Runtime, no PyTorch needed)
 numpy>=1.24
-opencv-python>=4.8,<5   # OpenCV 5 removed the Caffe loader the face detector needs
+opencv-python-headless>=4.8,<5   # OpenCV 5 removed the Caffe loader the face detector needs
 onnxruntime>=1.17
-gradio>=4.44
+streamlit>=1.50
